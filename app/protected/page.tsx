@@ -1,6 +1,7 @@
 import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import AuthorizedUserHomePage from "../../components/AuthorizedUserHomePage";
 
 export default async function UserHome() {
   const supabase = createClient();
@@ -13,8 +14,13 @@ export default async function UserHome() {
     return redirect("/");
   }
 
-  const { data } = await supabase.from("clients").select("*");
+  const { data: clients } = await supabase.from("clients").select("*");
+  const { data: products } = await supabase.from("products").select("*");
+  const { data: individual_price } = await supabase
+    .from("individual_price")
+    .select("*");
 
+  const data = { clients, products, individual_price };
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="w-full">
@@ -26,8 +32,7 @@ export default async function UserHome() {
         </nav>
       </div>
 
-      <div>ZEICE generetor</div>
-      {data?.map((i) => i.bar_title)}
+      <AuthorizedUserHomePage data={data} />
     </div>
   );
 }

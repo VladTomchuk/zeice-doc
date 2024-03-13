@@ -40,8 +40,24 @@ export default function Index({
   return (
     <div>
       {isSupabaseConnected ? (
-        <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-          <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+        <div
+          style={{
+            display: "flex",
+            height: "100vh",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <form
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "left",
+              gap: "15px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <label className="text-md" htmlFor="email">
               Email
             </label>
